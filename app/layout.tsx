@@ -41,7 +41,25 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <GoogleAnalytics gaId="G-MHLY1LNGY5" />
+            <Script
+                id="gtag-init"
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=G-MHLY1LNGY5`}
+            />
+            <Script
+                id="gtag-config"
+                strategy="afterInteractive"
+            >
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-MHLY1LNGY5', {
+                        cookie_domain: typeof window !== 'undefined' ? window.location.hostname : 'auto',
+                        cookie_flags: 'SameSite=None;Secure'
+                    });
+                `}
+            </Script>
             <Script id="hotjar" strategy="afterInteractive">
                 {`(function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};

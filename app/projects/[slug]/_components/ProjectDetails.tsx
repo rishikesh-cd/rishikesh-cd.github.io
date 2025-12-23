@@ -88,8 +88,7 @@ const ProjectDetails = ({ project }: Props) => {
         <section className="pt-5 pb-14">
             <div className="container" ref={containerRef}>
                 <TransitionLink
-                    back
-                    href="/"
+                    href="/#selected-projects"
                     className="mb-16 inline-flex gap-2 items-center group h-12"
                 >
                     <ArrowLeft className="group-hover:-translate-x-1 group-hover:text-primary transition-all duration-300" />

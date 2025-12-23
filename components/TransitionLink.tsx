@@ -5,9 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { ComponentProps } from 'react';
 
-interface Props extends ComponentProps<typeof Link> {
-    back?: boolean;
-}
+interface Props extends ComponentProps<typeof Link> {}
 
 gsap.registerPlugin(useGSAP);
 
@@ -15,7 +13,6 @@ const TransitionLink = ({
     href,
     onClick,
     children,
-    back = false,
     ...rest
 }: Props) => {
     const router = useRouter();
@@ -24,6 +21,15 @@ const TransitionLink = ({
 
     const handleLinkClick = contextSafe(
         async (e: React.MouseEvent<HTMLAnchorElement>) => {
+            const toString = href?.toString();
+            const isHash = toString?.includes('#');
+            const targetPath = toString?.split('#')[0];
+            const isSamePage = !targetPath || targetPath === window.location.pathname;
+
+            if (isHash && isSamePage) {
+                return;
+            }
+            
             e.preventDefault();
 
             gsap.set('.page-transition', { yPercent: 100 });
@@ -34,12 +40,11 @@ const TransitionLink = ({
             tl.to('.page-transition', {
                 yPercent: 0,
                 duration: 0.3,
+                ease: 'power2.inOut',
             });
 
             tl.then(() => {
-                if (back) {
-                    router.back();
-                } else if (href) {
+                if (href) {
                     router.push(href.toString());
                 } else if (onClick) {
                     onClick(e);
