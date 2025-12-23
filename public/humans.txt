@@ -1,5 +1,5 @@
 /* TEAM */
-Chef: Rishikesh C D (https://yourportfolio.com)
+Chef: Rishikesh C D (https://rishikeshcd.github.io)
 
 /* THANKS */
 Original Template: Tajmirul (https://tajmirul.site/)
