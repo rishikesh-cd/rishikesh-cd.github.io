@@ -65,18 +65,22 @@ const ProjectDetails = ({ project }: Props) => {
     // parallax effect on images
     useGSAP(
         () => {
+            const isGrid =
+                project.slug === 'harithamithram-mobile' ||
+                project.images.length > 4;
+
             gsap.utils
                 .toArray<HTMLDivElement>('#images > div')
                 .forEach((imageDiv, i) => {
                     gsap.to(imageDiv, {
-                        backgroundPosition: `center 0%`,
+                        y: -50,
                         ease: 'none',
                         scrollTrigger: {
                             trigger: imageDiv,
-                            start: () => (i ? 'top bottom' : 'top 50%'),
+                            start: () =>
+                                isGrid ? 'top bottom' : i ? 'top bottom' : 'top 50%',
                             end: 'bottom top',
                             scrub: true,
-                            // invalidateOnRefresh: true, // to make it responsive
                         },
                     });
                 });
@@ -182,20 +186,25 @@ const ProjectDetails = ({ project }: Props) => {
                 </div>
 
                 <div
-                    className="fade-in-later relative flex flex-col gap-2 max-w-[800px] mx-auto"
+                    className={`fade-in-later relative mx-auto gap-10 ${
+                        project.slug === 'harithamithram-mobile'
+                            ? 'grid grid-cols-2 md:grid-cols-4'
+                            : project.images.length > 4
+                              ? 'grid grid-cols-1 md:grid-cols-2 max-w-[1000px]'
+                              : 'flex flex-col max-w-[800px]'
+                    }`}
                     id="images"
                 >
                     {project.images.map((image) => (
                         <div
                             key={image}
-                            className="group relative w-full aspect-[750/400] bg-background-light"
-                            style={{
-                                backgroundImage: `url(${image})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center 50%',
-                                backgroundRepeat: 'no-repeat',
-                            }}
+                            className="group relative w-full flex justify-center items-center"
                         >
+                            <img
+                                src={image}
+                                alt={project.title}
+                                className={`w-full h-auto object-contain bg-background-light shadow-sm rounded-lg max-h-[600px]`}
+                            />
                             <a
                                 href={image}
                                 target="_blank"
