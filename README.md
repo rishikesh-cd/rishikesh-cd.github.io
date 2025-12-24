@@ -8,7 +8,7 @@ This repository highlights selected projects, technical skills, and engineering 
 
 ## Live Portfolio
 
-[https://rishikeshcd619.github.io/](https://rishikeshcd619.github.io/)
+[https://rishikeshcd619.github.io](https://rishikeshcd619.github.io)
 
 ## What This Portfolio Demonstrates
 
