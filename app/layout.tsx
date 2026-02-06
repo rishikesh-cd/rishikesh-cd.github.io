@@ -13,6 +13,7 @@ import Preloader from '../components/Preloader';
 import StickyEmail from './_components/StickyEmail';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
+import VisitorTracker from '@/components/VisitorTracker';
 
 const antonFont = Anton({
     weight: '400',
@@ -40,7 +41,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <Script
                 id="gtag-init"
                 strategy="afterInteractive"
@@ -72,6 +73,7 @@ export default function RootLayout({
             </Script>
             <body
                 className={`${antonFont.variable} ${robotoFlex.variable} antialiased`}
+                suppressHydrationWarning
             >
                 <ReactLenis
                     root
@@ -98,6 +100,7 @@ export default function RootLayout({
                     <ScrollProgressIndicator />
                     <ParticleBackground />
                     <StickyEmail />
+                    <VisitorTracker />
                 </ReactLenis>
             </body>
         </html>

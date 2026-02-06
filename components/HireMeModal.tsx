@@ -5,6 +5,7 @@ import { Mail, MessageCircle, Phone, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import gsap from 'gsap';
 import { EMAIL_LINK, GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
+import { trackStat } from '@/lib/stats';
 
 interface HireMeModalProps {
     isOpen: boolean;
@@ -96,6 +97,7 @@ const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
                     {/* Email Option */}
                     <a 
                         href={EMAIL_LINK}
+                        onClick={() => trackStat('email_click')}
                         className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
                     >
                         <div className="flex-shrink-0 size-12 flex items-center justify-center rounded-lg bg-primary/20 text-primary group-hover:scale-110 transition-transform">
@@ -112,6 +114,7 @@ const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackStat('whatsapp_click')}
                         className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300"
                     >
                         <div className="flex-shrink-0 size-12 flex items-center justify-center rounded-lg bg-green-500/20 text-green-500 group-hover:scale-110 transition-transform">
@@ -127,6 +130,7 @@ const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
                     {isMobile && (
                         <a 
                             href={`tel:${GENERAL_INFO.phone.replace(/\s/g, '')}`}
+                            onClick={() => trackStat('call_click')}
                             className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-secondary/50 hover:bg-secondary/10 transition-all duration-300"
                         >
                             <div className="flex-shrink-0 size-12 flex items-center justify-center rounded-lg bg-secondary/20 text-secondary group-hover:scale-110 transition-transform">

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { MoveUpRight, Github, Linkedin, Home, User, Briefcase, FolderRoot, Phone, Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { EMAIL_LINK, GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
+import { trackStat } from '@/lib/stats';
 
 const Whatsapp = ({ className }: { className?: string }) => (
     <svg
@@ -125,6 +126,11 @@ const Navbar = () => {
                                             href={link.url}
                                             target="_blank"
                                             rel="noreferrer"
+                                            onClick={() => {
+                                                if (link.name.toLowerCase() === 'whatsapp') trackStat('whatsapp_click');
+                                                if (link.name.toLowerCase() === 'github') trackStat('github_click');
+                                                if (link.name.toLowerCase() === 'linkedin') trackStat('linkedin_click');
+                                            }}
                                             className="text-lg capitalize hover:underline flex items-center gap-2"
                                         >
                                             {getSocialIcon(link.name)}
@@ -161,11 +167,19 @@ const Navbar = () => {
                 <div className="w-full max-w-[300px] mx-8 sm:mx-auto">
                     <p className="text-muted-foreground mb-4">GET IN TOUCH</p>
                     <div className="flex flex-col gap-2">
-                        <a href={EMAIL_LINK} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <a 
+                            href={EMAIL_LINK} 
+                            onClick={() => trackStat('email_click')}
+                            className="flex items-center gap-2 hover:text-primary transition-colors"
+                        >
                             <Mail size={14} className="text-muted-foreground" />
                             {GENERAL_INFO.email}
                         </a>
-                        <a href={`tel:${GENERAL_INFO.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <a 
+                            href={`tel:${GENERAL_INFO.phone.replace(/\s/g, '')}`} 
+                            onClick={() => trackStat('call_click')}
+                            className="flex items-center gap-2 hover:text-primary transition-colors"
+                        >
                             <Phone size={14} className="text-muted-foreground" />
                             {GENERAL_INFO.phone}
                         </a>
