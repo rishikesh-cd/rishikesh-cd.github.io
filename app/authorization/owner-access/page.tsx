@@ -28,17 +28,23 @@ export default function FakePage() {
     };
 
     const startScan = async () => {
-        setIsScanning(true);
-        setScanStatus('scanning');
-        setScanProgress(0);
+        setError('');
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             streamRef.current = stream;
             if (videoRef.current) {
                 videoRef.current.srcObject = stream;
             }
+            
+            // Only start scanning UI if permission is granted
+            setIsScanning(true);
+            setScanStatus('scanning');
+            setScanProgress(0);
         } catch (err) {
-            console.log("Camera access denied - proceeding with fake scan");
+            console.error("Camera access denied:", err);
+            setError('Camera permission required for Face ID scanning');
+            setIsScanning(false);
+            setScanStatus('idle');
         }
     };
 
@@ -188,6 +194,11 @@ export default function FakePage() {
                             <Button as="button" onClick={startScan} className="w-full">
                                 START FACE ID
                             </Button>
+                            {error && (
+                                <p className="text-red-500 text-center text-[10px] font-mono uppercase tracking-widest animate-pulse mt-6">
+                                    {error}
+                                </p>
+                            )}
                         </div>
                     ) : (
                         <form onSubmit={handlePinSubmit} className={cn(
