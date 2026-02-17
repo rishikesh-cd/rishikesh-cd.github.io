@@ -14,6 +14,7 @@ import StickyEmail from './_components/StickyEmail';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
 import VisitorTracker from '@/components/VisitorTracker';
+import AutoHireMeTrigger from '@/components/AutoHireMeTrigger';
 
 const antonFont = Anton({
     weight: '400',
@@ -101,6 +102,7 @@ export default function RootLayout({
                     <ParticleBackground />
                     <StickyEmail />
                     <VisitorTracker />
+                    <AutoHireMeTrigger />
                 </ReactLenis>
             </body>
         </html>

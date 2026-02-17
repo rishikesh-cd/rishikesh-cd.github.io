@@ -857,12 +857,12 @@ export const PROJECTS: IProject[] = [
 export const MY_EXPERIENCE = [
     {
         title: 'Software Engineer (Web & Mobile Applications)',
-        company: 'Trois Infotech Private Limited, Trivandrum',
+        company: 'Trois Infotech Pvt Ltd, Trivandrum',
         duration: 'Oct 2024 - Present',
     },
     {
         title: 'FullStack Developer',
-        company: 'SPR Digital Lab LLP, Kochi',
+        company: 'SPR Digital Lab LLP, Cochin',
         duration: 'Nov 2021 - Aug 2024',
     },
     {

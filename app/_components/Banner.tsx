@@ -1,8 +1,6 @@
 'use client';
 import ArrowAnimation from '@/components/ArrowAnimation';
 import Button from '@/components/Button';
-import { EMAIL_LINK, GENERAL_INFO } from '@/lib/data';
-import HireMeModal from '@/components/HireMeModal';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
@@ -12,10 +10,15 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Banner = () => {
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const handleHireMeClick = () => {
-        setIsModalOpen(true);
+        window.dispatchEvent(new CustomEvent('open-hire-me-modal', {
+            detail: {
+                title: "Let's Connect",
+                description: "Pick your preferred way to reach out. I'll get back to you as soon as possible.",
+                showBadge: false
+            }
+        }));
     };
 
     // move the content a little up on scroll
@@ -95,10 +98,6 @@ const Banner = () => {
                     </div>
                 </div>
             </div>
-            <HireMeModal 
-                isOpen={isModalOpen} 
-                onClose={() => setIsModalOpen(false)} 
-            />
         </section>
     );
 };

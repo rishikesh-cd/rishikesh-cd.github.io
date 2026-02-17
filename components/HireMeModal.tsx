@@ -10,9 +10,13 @@ import { trackStat } from '@/lib/stats';
 interface HireMeModalProps {
     isOpen: boolean;
     onClose: () => void;
+    title?: React.ReactNode;
+    description?: React.ReactNode;
+    showBadge?: boolean;
+    onInteracted?: () => void;
 }
 
-const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
+const HireMeModal = ({ isOpen, onClose, title, description, showBadge = true, onInteracted }: HireMeModalProps) => {
     const [shouldRender, setShouldRender] = React.useState(isOpen);
     const modalRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
@@ -89,15 +93,35 @@ const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
                 </button>
 
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-anton text-primary uppercase tracking-tight mb-2">Let&apos;s Connect</h2>
-                    <p className="text-muted-foreground">Pick your preferred way to reach out. I&apos;ll get back to you as soon as possible.</p>
+                    {showBadge && (
+                        <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4 animate-pulse">
+                            Available for Hire
+                        </div>
+                    )}
+                    <h2 className="text-3xl font-anton text-foreground uppercase tracking-tight mb-3">
+                        {title || (
+                            <>
+                                Ready to <span className="text-primary">Elevate</span> Your Team?
+                            </>
+                        )}
+                    </h2>
+                    <div className="text-muted-foreground text-pretty">
+                        {description || (
+                            <p>
+                                I&apos;m currently scouting for exciting frontend opportunities. If you&apos;re looking for a developer who blends <span className="text-foreground font-medium">creativity with performance</span>, let&apos;s talk!
+                            </p>
+                        )}
+                    </div>
                 </div>
 
                 <div className="space-y-4">
                     {/* Email Option */}
                     <a 
                         href={EMAIL_LINK}
-                        onClick={() => trackStat('email_click')}
+                        onClick={() => {
+                            trackStat('email_click');
+                            onInteracted?.();
+                        }}
                         className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
                     >
                         <div className="flex-shrink-0 size-12 flex items-center justify-center rounded-lg bg-primary/20 text-primary group-hover:scale-110 transition-transform">
@@ -114,7 +138,10 @@ const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackStat('whatsapp_click')}
+                        onClick={() => {
+                            trackStat('whatsapp_click');
+                            onInteracted?.();
+                        }}
                         className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300"
                     >
                         <div className="flex-shrink-0 size-12 flex items-center justify-center rounded-lg bg-green-500/20 text-green-500 group-hover:scale-110 transition-transform">
@@ -130,7 +157,10 @@ const HireMeModal = ({ isOpen, onClose }: HireMeModalProps) => {
                     {isMobile && (
                         <a 
                             href={`tel:${GENERAL_INFO.phone.replace(/\s/g, '')}`}
-                            onClick={() => trackStat('call_click')}
+                            onClick={() => {
+                                trackStat('call_click');
+                                onInteracted?.();
+                            }}
                             className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-secondary/50 hover:bg-secondary/10 transition-all duration-300"
                         >
                             <div className="flex-shrink-0 size-12 flex items-center justify-center rounded-lg bg-secondary/20 text-secondary group-hover:scale-110 transition-transform">
