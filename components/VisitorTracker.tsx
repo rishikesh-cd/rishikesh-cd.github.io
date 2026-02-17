@@ -1,10 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { trackStat } from '@/lib/stats';
 
-export default function VisitorTracker() {
+function TrackerLogic() {
+    const searchParams = useSearchParams();
+
     useEffect(() => {
+        const isOwnerParam = searchParams.get('is_owner');
+        
+        if (isOwnerParam === 'true') {
+            localStorage.setItem('is_owner', 'true');
+            console.log('[Stats] Owner mode activated via URL');
+        }
+
         const trackVisit = async () => {
             const today = new Date().toISOString().split('T')[0];
             const sessionKey = `visited_${today}`;
@@ -22,7 +32,21 @@ export default function VisitorTracker() {
         };
 
         trackVisit();
-    }, []);
+
+        // Cleanup on unmount
+        return () => {
+            localStorage.removeItem('is_owner');
+            console.log('[Stats] Owner mode deactivated on unmount');
+        };
+    }, [searchParams]);
 
     return null;
+}
+
+export default function VisitorTracker() {
+    return (
+        <Suspense fallback={null}>
+            <TrackerLogic />
+        </Suspense>
+    );
 }

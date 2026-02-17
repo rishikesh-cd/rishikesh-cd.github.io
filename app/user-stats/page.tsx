@@ -262,6 +262,7 @@ export default function StatsPage() {
         e.preventDefault();
         if (pinEntry === PIN) {
             setIsAuthorized(true);
+            localStorage.setItem('is_owner', 'true');
             setError('');
         } else {
             setError('Invalid PIN. Please try again.');

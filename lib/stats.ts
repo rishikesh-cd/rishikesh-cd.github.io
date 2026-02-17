@@ -36,6 +36,12 @@ const getDeviceInfo = () => {
 };
 
 export const trackStat = async (event: StatEvent) => {
+    // 0. Check if owner mode is active
+    if (typeof window !== 'undefined' && localStorage.getItem('is_owner') === 'true') {
+        console.log(`[Stats] Owner mode active. Skipping: ${event}`);
+        return;
+    }
+
     // 1. Gather Basic Info (Synchronous)
     const deviceInfo = getDeviceInfo();
     const timestamp = new Date().toISOString();
