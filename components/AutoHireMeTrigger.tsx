@@ -16,7 +16,9 @@ const AutoHireMeTrigger = () => {
     useEffect(() => {
         // Check if user already interacted in previous sessions
         const interacted = localStorage.getItem('hire_me_interacted') === 'true';
-        if (interacted) {
+        const isOwner = localStorage.getItem('is_owner') === 'true';
+        
+        if (interacted || isOwner) {
             setIsPermanentlyDisabled(true);
         }
     }, []);
