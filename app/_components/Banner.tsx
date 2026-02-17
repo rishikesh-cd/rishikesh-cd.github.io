@@ -14,7 +14,7 @@ const Banner = () => {
     const handleHireMeClick = () => {
         window.dispatchEvent(new CustomEvent('open-hire-me-modal', {
             detail: {
-                title: "Let's Connect",
+                title: <>Let&apos;s <span className="text-primary">Connect</span></>,
                 description: "Pick your preferred way to reach out. I'll get back to you as soon as possible.",
                 showBadge: false
             }
