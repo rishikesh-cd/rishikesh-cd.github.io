@@ -867,7 +867,7 @@ export const MY_EXPERIENCE = [
     },
     {
         title: 'Software Developer Intern',
-        company: 'Invoid Systems Private Limited, Calicut',
+        company: 'Invoid Systems Pvt Ltd, Calicut',
         duration: 'Sep 2020 - Aug 2021',
     },
 ];
